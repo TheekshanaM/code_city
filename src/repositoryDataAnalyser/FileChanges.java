@@ -43,9 +43,12 @@ public class FileChanges {
 	                       setNewTree(newTreeParser).
 	                       setPathFilter(PathFilter.create(classPath)).
 	                       call();
-	            	 FileHeader fileHeader = diffFormatter.toFileHeader( diffEntries.get( 0 ) );
-	            	 EditList x=fileHeader.toEditList();
-	            	 
+//	            	 FileHeader fileHeader = diffFormatter.toFileHeader( diffEntries.get( 0 ) );
+//	            	 EditList x=fileHeader.toEditList();
+	            	 if(diffEntries.size()==0) {
+	            		 String strObj = "{\"obj\":[]}";
+	            		 return strObj;
+	            	 }
 	            	 
 	            	 int lastIndex=0;
 	            	 int beginA;
@@ -99,7 +102,7 @@ public class FileChanges {
 	            		 }
 	            	 }
 
-	            	 if(lastIndex < lastLine) {
+	            	 if(lastIndex < lastLine && lastIndex != 0) {
 	            		 notChanged += "{\"x\": \"Current version\",\"y\": ["+lastIndex+","+ lastLine+"]},";
 	            		 notChangeStatus=true;
 	            	 }
@@ -117,7 +120,7 @@ public class FileChanges {
 	            	 notChanged += "]}";
 	            	 
 	            	 String strObj = "{\"obj\":["+insert+","+notChanged+","+delete+"]}";
-	            	 System.out.println(x);
+//	            	 System.out.println(x);
 	            	 
 	            	 return strObj;
 	            }

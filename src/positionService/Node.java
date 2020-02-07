@@ -90,6 +90,7 @@ public class Node {
 			fileNodeObj.type = FileType;
 			fileNodeObj.childrenMap = new HashMap<String,NodeInfo>();
 			fileNodeObj.children = new ArrayList<NodeInfo>();
+			fileNodeObj.numberOfAttributes = entity.getValue().numberAttributes;
 			
 			currentNode.childrenMap.put(fileName,fileNodeObj);
 			NodeInfo fileNode = currentNode.childrenMap.get(fileName);

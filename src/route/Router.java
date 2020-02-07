@@ -118,9 +118,10 @@ public class Router {
 	@GET
 	@Path("/filedifferent/{class}/{newcommit}/{oldcommit}/{loc}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getFileDifferent(@PathParam("class") String calssName,@PathParam("newcommit") String newCommit,@PathParam("oldcommit") String oldCommit, @PathParam("loc") int linesOfCode) {
+	public Response getFileDifferent(@PathParam("class") String className,@PathParam("newcommit") String newCommit,@PathParam("oldcommit") String oldCommit, @PathParam("loc") int linesOfCode) {
+		className=className.replaceAll(">", "/");
 		FileChanges diffObj = new FileChanges();
-		String diff = diffObj.getFileDiff(calssName, newCommit, oldCommit, linesOfCode);
+		String diff = diffObj.getFileDiff(className, newCommit, oldCommit, linesOfCode);
 		
 		JSONParser parser = new JSONParser();
 	   	 try {
