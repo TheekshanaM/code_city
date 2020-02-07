@@ -1,7 +1,8 @@
 package com.github.mauricioaniche.ck.metric;
 
-import com.github.mauricioaniche.ck.CKClassResult;
-import com.github.mauricioaniche.ck.util.WordCounter;
+import jcity.JClassResult;
+import jcity.util.WordCounter;
+
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
@@ -24,7 +25,7 @@ public class ClassLevelWordCounter extends ASTVisitor implements ClassLevelMetri
 	}
 
 	@Override
-	public void setResult(CKClassResult result) {
+	public void setResult(JClassResult result) {
 		result.setUniqueWordsQty(qtyOfUniqueWords);
 
 	}

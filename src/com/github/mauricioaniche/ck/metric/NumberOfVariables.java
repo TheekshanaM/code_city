@@ -1,15 +1,16 @@
 package com.github.mauricioaniche.ck.metric;
 
-import com.github.mauricioaniche.ck.CKClassResult;
-import com.github.mauricioaniche.ck.CKMethodResult;
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
+
+import jcity.JClassResult;
+import jcity.JMethodResult;
 
 public class NumberOfVariables extends ASTVisitor implements ClassLevelMetric, MethodLevelMetric {
 	private int qty = 0;
 
 	@Override
-	public void setResult(CKMethodResult result) {
+	public void setResult(JMethodResult result) {
 		result.setVariablesQty(qty);
 	}
 
@@ -19,7 +20,7 @@ public class NumberOfVariables extends ASTVisitor implements ClassLevelMetric, M
 	}
 
 	@Override
-	public void setResult(CKClassResult result) {
+	public void setResult(JClassResult result) {
 
 		result.setVariablesQty(qty);
 

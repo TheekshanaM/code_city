@@ -1,4 +1,4 @@
-package com.github.mauricioaniche.ck.util;
+package jcity.util;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;

@@ -1,9 +1,10 @@
 package com.github.mauricioaniche.ck.metric;
 
-import com.github.mauricioaniche.ck.CKClassResult;
-import com.github.mauricioaniche.ck.CKMethodResult;
 import org.apache.commons.lang3.StringUtils;
 import org.eclipse.jdt.core.dom.*;
+
+import jcity.JClassResult;
+import jcity.JMethodResult;
 
 public class WMC extends ASTVisitor implements ClassLevelMetric, MethodLevelMetric {
 
@@ -88,13 +89,13 @@ public class WMC extends ASTVisitor implements ClassLevelMetric, MethodLevelMetr
     }
 
 	@Override
-	public void setResult(CKClassResult result) {
+	public void setResult(JClassResult result) {
 		result.setWmc(cc);
 	}
 
 
 	@Override
-	public void setResult(CKMethodResult result) {
+	public void setResult(JMethodResult result) {
 		result.setWmc(cc);
 	}
 }

@@ -19,12 +19,14 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import com.github.mauricioaniche.ck.Runner;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import dataExtractor.ClassDetails;
-import dataExtractor.JsonClass;
+//import dataExtractor.ClassDetails;
+//import dataExtractor.JsonClass;
+import jcity.JCity;
+import jcity.Runner;
 //import handler.Hadler;
 import positionService.Node;
 import repositoryDataAnalyser.CloneRemoteRepository;
@@ -46,7 +48,7 @@ public class Router {
 //		link =url;
 		repo.cloneRepo(url);
 		
-		HashMap<String, ClassDetails> extractedData = new HashMap<String, ClassDetails>();
+		HashMap<String, JCity> extractedData = new HashMap<String, JCity>();
 		Runner runner = new Runner();
 		extractedData = runner.runMethod(repository);
 		Node node = new Node();
@@ -82,7 +84,7 @@ public class Router {
         	git.checkout().setName( comitId).call();
         	git.getRepository().close();
         	
-        	HashMap<String, ClassDetails> extractedData = new HashMap<String, ClassDetails>();
+        	HashMap<String, JCity> extractedData = new HashMap<String, JCity>();
     		Runner runner = new Runner();
     		extractedData = runner.runMethod(repository);
     		Node node = new Node();

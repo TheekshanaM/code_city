@@ -1,8 +1,9 @@
 package com.github.mauricioaniche.ck.metric;
 
-import com.github.mauricioaniche.ck.CKMethodResult;
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
+
+import jcity.JMethodResult;
 
 public class NumberOfParameters extends ASTVisitor implements MethodLevelMetric{
 
@@ -15,7 +16,7 @@ public class NumberOfParameters extends ASTVisitor implements MethodLevelMetric{
 	}
 
 	@Override
-	public void setResult(CKMethodResult result) {
+	public void setResult(JMethodResult result) {
 		result.setParametersQty(qty);
 	}
 

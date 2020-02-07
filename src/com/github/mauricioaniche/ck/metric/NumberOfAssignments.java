@@ -1,10 +1,11 @@
 package com.github.mauricioaniche.ck.metric;
 
-import com.github.mauricioaniche.ck.CKClassResult;
-import com.github.mauricioaniche.ck.CKMethodResult;
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.Assignment;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
+
+import jcity.JClassResult;
+import jcity.JMethodResult;
 
 public class NumberOfAssignments extends ASTVisitor implements ClassLevelMetric, MethodLevelMetric {
 
@@ -25,13 +26,13 @@ public class NumberOfAssignments extends ASTVisitor implements ClassLevelMetric,
 	}
 
 	@Override
-	public void setResult(CKMethodResult result) {
+	public void setResult(JMethodResult result) {
 		result.setAssignmentsQty(qty);
 
 	}
 
 	@Override
-	public void setResult(CKClassResult result) {
+	public void setResult(JClassResult result) {
 		result.setAssignmentsQty(qty);
 	}
 }

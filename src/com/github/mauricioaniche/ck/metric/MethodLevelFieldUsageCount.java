@@ -1,8 +1,9 @@
 package com.github.mauricioaniche.ck.metric;
 
-import com.github.mauricioaniche.ck.CKClassResult;
-import com.github.mauricioaniche.ck.CKMethodResult;
 import org.eclipse.jdt.core.dom.*;
+
+import jcity.JClassResult;
+import jcity.JMethodResult;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -82,7 +83,7 @@ public class MethodLevelFieldUsageCount extends ASTVisitor implements MethodLeve
 	}
 
 	@Override
-	public void setResult(CKMethodResult result) {
+	public void setResult(JMethodResult result) {
 		result.setFieldUsage(occurrences);
 	}
 }

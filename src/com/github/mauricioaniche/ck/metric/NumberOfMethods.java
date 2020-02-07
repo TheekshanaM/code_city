@@ -1,9 +1,10 @@
 package com.github.mauricioaniche.ck.metric;
 
-import com.github.mauricioaniche.ck.CKClassResult;
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.Modifier;
+
+import jcity.JClassResult;
 
 public class NumberOfMethods extends ASTVisitor implements ClassLevelMetric {
 
@@ -58,7 +59,7 @@ public class NumberOfMethods extends ASTVisitor implements ClassLevelMetric {
 	}
 
 	@Override
-	public void setResult(CKClassResult result) {
+	public void setResult(JClassResult result) {
 		result.setNumberOfMethods(methods);
 		result.setNumberOfStaticMethods(staticMethods);
 		result.setNumberOfPublicMethods(publicMethods);

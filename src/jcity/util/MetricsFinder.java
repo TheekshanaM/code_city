@@ -1,4 +1,4 @@
-package com.github.mauricioaniche.ck.util;
+package jcity.util;
 
 import com.github.mauricioaniche.ck.metric.ClassLevelMetric;
 import com.github.mauricioaniche.ck.metric.MethodLevelMetric;

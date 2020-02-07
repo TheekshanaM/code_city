@@ -1,7 +1,8 @@
 package com.github.mauricioaniche.ck.metric;
 
-import com.github.mauricioaniche.ck.CKMethodResult;
-import com.github.mauricioaniche.ck.util.WordCounter;
+import jcity.JMethodResult;
+import jcity.util.WordCounter;
+
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 
@@ -18,7 +19,7 @@ public class MethodLevelWordCounter extends ASTVisitor implements MethodLevelMet
 
 
 	@Override
-	public void setResult(CKMethodResult result) {
+	public void setResult(JMethodResult result) {
 		result.setUniqueWordsQty(qtyOfUniqueWords);
 	}
 }

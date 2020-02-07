@@ -6,7 +6,8 @@ import java.util.Map;
 
 import com.google.gson.annotations.Expose;
 
-import dataExtractor.ClassDetails;
+import jcity.JCity;
+//import dataExtractor.ClassDetails;
 //import positionService.Position;
 //import model.Node.NodeInfo;
 import positionService.Position.Positions;
@@ -53,7 +54,7 @@ public class Node {
 		@Expose(serialize = false)
 		HashMap<String,NodeInfo> childrenMap;
 	}
-	public NodeInfo create(HashMap<String,ClassDetails> items,String repositoryName,String repositoryBranch) {
+	public NodeInfo create(HashMap<String,JCity> items,String repositoryName,String repositoryBranch) {
 		tree = new NodeInfo();
 		tree.name = repositoryName;
 		tree.url = "";
@@ -64,7 +65,7 @@ public class Node {
 		tree.position.put("x",(float)0);
 		tree.position.put("y", (float)0);
 		
-		for(Map.Entry<String, ClassDetails> entity : items.entrySet()) {
+		for(Map.Entry<String, JCity> entity : items.entrySet()) {
 //			System.out.println(entity.getKey());
 			NodeInfo currentNode = tree;
 			String[] pathlist= entity.getKey().split("/");
@@ -90,7 +91,7 @@ public class Node {
 			fileNodeObj.type = FileType;
 			fileNodeObj.childrenMap = new HashMap<String,NodeInfo>();
 			fileNodeObj.children = new ArrayList<NodeInfo>();
-			fileNodeObj.numberOfAttributes = entity.getValue().numberAttributes;
+			fileNodeObj.numberOfAttributes = entity.getValue().getNumberOfAttributes();
 			
 			currentNode.childrenMap.put(fileName,fileNodeObj);
 			NodeInfo fileNode = currentNode.childrenMap.get(fileName);
@@ -102,10 +103,10 @@ public class Node {
 			classNodeObj.path = getpath(entity.getKey(),pathlist[0]);
 			classNodeObj.children = new ArrayList<NodeInfo>();
 			classNodeObj.childrenMap = new HashMap<String, NodeInfo>();
-			classNodeObj.line = entity.getValue().line;
-			classNodeObj.numberOfAttributes = entity.getValue().numberAttributes;
-			classNodeObj.numberOfMethods = entity.getValue().numberMethods;
-			classNodeObj.numberOfLines = entity.getValue().numberLines;
+			classNodeObj.line = entity.getValue().getLine();
+			classNodeObj.numberOfAttributes = entity.getValue().getNumberOfAttributes();
+			classNodeObj.numberOfMethods = entity.getValue().getNumberOfMethods();
+			classNodeObj.numberOfLines = entity.getValue().getLinesOfCodes();
 			
 			fileNode.childrenMap.put(fileName, classNodeObj);
 //			System.out.println(fileNode.childrenMap.get(fileName).name);

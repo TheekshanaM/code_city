@@ -1,8 +1,9 @@
-package com.github.mauricioaniche.ck.util;
+package jcity.util;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
+@SuppressWarnings("serial")
 public class WordCounter {
 
 	private static Set<String> javaKeywords;

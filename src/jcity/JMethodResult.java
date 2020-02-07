@@ -1,9 +1,9 @@
-package com.github.mauricioaniche.ck;
+package jcity;
 
 import java.util.Map;
 import java.util.Objects;
 
-public class CKMethodResult {
+public class JMethodResult {
 	private int cbo;
 	private int rfc;
 	private int wmc;
@@ -31,7 +31,7 @@ public class CKMethodResult {
 	private boolean isConstructor;
 	private int modifiers;
 
-	public CKMethodResult(String methodName, boolean isConstructor, int modifiers) {
+	public JMethodResult(String methodName, boolean isConstructor, int modifiers) {
 		this.methodName = methodName;
 		this.isConstructor = isConstructor;
 		this.modifiers = modifiers;
@@ -253,7 +253,7 @@ public class CKMethodResult {
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
-		CKMethodResult that = (CKMethodResult) o;
+		JMethodResult that = (JMethodResult) o;
 		return startLine == that.startLine &&
 				methodName.equals(that.methodName);
 	}

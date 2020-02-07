@@ -1,8 +1,8 @@
-package com.github.mauricioaniche.ck;
+package jcity;
 
 import java.util.*;
 
-public class CKClassResult {
+public class JClassResult {
 
 	private String file;
 	private String className;
@@ -17,7 +17,7 @@ public class CKClassResult {
 	private int nosi;
 	private int loc;
 	
-	private Set<CKMethodResult> methods;
+	private Set<JMethodResult> methods;
 	private int returnQty;
 	private int loopQty;
 	private int comparisonsQty;
@@ -52,7 +52,7 @@ public class CKClassResult {
 	private int numberOfSynchronizedFields;
 	private int modifiers;
 
-	public CKClassResult(String file, String className, String type, int modifiers) {
+	public JClassResult(String file, String className, String type, int modifiers) {
 		this.file = file;
 		this.className = className;
 		this.type = type;
@@ -141,15 +141,15 @@ public class CKClassResult {
 	}
 
 
-	public void addMethod(CKMethodResult method) {
+	public void addMethod(JMethodResult method) {
 		this.methods.add(method);
 	}
 
-	public Set<CKMethodResult> getMethods() {
+	public Set<JMethodResult> getMethods() {
 		return Collections.unmodifiableSet(methods);
 	}
 
-	public Optional<CKMethodResult> getMethod(String methodName) {
+	public Optional<JMethodResult> getMethod(String methodName) {
 		return methods.stream().filter(m -> m.getMethodName().equals(methodName)).findFirst();
 	}
 
@@ -417,7 +417,7 @@ public class CKClassResult {
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
-		CKClassResult that = (CKClassResult) o;
+		JClassResult that = (JClassResult) o;
 		return file.equals(that.file) &&
 				className.equals(that.className) &&
 				type.equals(that.type);

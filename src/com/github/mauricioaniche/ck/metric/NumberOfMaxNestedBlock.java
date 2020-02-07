@@ -1,9 +1,10 @@
 package com.github.mauricioaniche.ck.metric;
 
-import com.github.mauricioaniche.ck.CKClassResult;
-import com.github.mauricioaniche.ck.CKMethodResult;
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.Block;
+
+import jcity.JClassResult;
+import jcity.JMethodResult;
 
 public class NumberOfMaxNestedBlock extends ASTVisitor implements ClassLevelMetric, MethodLevelMetric {
 
@@ -24,13 +25,13 @@ public class NumberOfMaxNestedBlock extends ASTVisitor implements ClassLevelMetr
 	}
 
 	@Override
-	public void setResult(CKMethodResult result) {
+	public void setResult(JMethodResult result) {
 		result.setMaxNestedBlocks(max - 1); // -1 because the method block is considered a block.
 
 	}
 
 	@Override
-	public void setResult(CKClassResult result) {
+	public void setResult(JClassResult result) {
 		result.setMaxNestedBlocks(max - 1);
 	}
 }

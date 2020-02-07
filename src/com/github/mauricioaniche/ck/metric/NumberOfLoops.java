@@ -1,8 +1,9 @@
 package com.github.mauricioaniche.ck.metric;
 
-import com.github.mauricioaniche.ck.CKClassResult;
-import com.github.mauricioaniche.ck.CKMethodResult;
 import org.eclipse.jdt.core.dom.*;
+
+import jcity.JClassResult;
+import jcity.JMethodResult;
 
 public class NumberOfLoops extends ASTVisitor implements ClassLevelMetric, MethodLevelMetric {
 
@@ -29,13 +30,13 @@ public class NumberOfLoops extends ASTVisitor implements ClassLevelMetric, Metho
 	}
 
 	@Override
-	public void setResult(CKMethodResult result) {
+	public void setResult(JMethodResult result) {
 		result.setLoopQty(qty);
 
 	}
 
 	@Override
-	public void setResult(CKClassResult result) {
+	public void setResult(JClassResult result) {
 		result.setLoopQty(qty);
 	}
 }

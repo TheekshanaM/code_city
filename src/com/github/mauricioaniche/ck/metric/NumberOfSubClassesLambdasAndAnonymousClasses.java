@@ -1,8 +1,9 @@
 package com.github.mauricioaniche.ck.metric;
 
-import com.github.mauricioaniche.ck.CKClassResult;
-import com.github.mauricioaniche.ck.CKMethodResult;
 import org.eclipse.jdt.core.dom.*;
+
+import jcity.JClassResult;
+import jcity.JMethodResult;
 
 public class NumberOfSubClassesLambdasAndAnonymousClasses extends ASTVisitor implements ClassLevelMetric, MethodLevelMetric {
 
@@ -26,7 +27,7 @@ public class NumberOfSubClassesLambdasAndAnonymousClasses extends ASTVisitor imp
 	}
 
 	@Override
-	public void setResult(CKClassResult result) {
+	public void setResult(JClassResult result) {
 		result.setAnonymousClassesQty(anonymousClassesQty);
 		result.setSubClassesQty(subClassesQty - 1);
 		result.setLambdasQty(lambdasQty);
@@ -34,7 +35,7 @@ public class NumberOfSubClassesLambdasAndAnonymousClasses extends ASTVisitor imp
 	}
 
 	@Override
-	public void setResult(CKMethodResult result) {
+	public void setResult(JMethodResult result) {
 		result.setAnonymousClassesQty(anonymousClassesQty);
 		result.setSubClassesQty(subClassesQty);
 		result.setLambdasQty(lambdasQty);

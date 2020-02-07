@@ -1,19 +1,48 @@
-package com.github.mauricioaniche.ck;
+package jcity;
 
-public class CKList {
+import java.util.ArrayList;
+
+public class JCity {
 	private String filePath;
     private String className;
+    private int line;
     private int numberOfMethods;
     private int linesOfCodes;
     private int numberOfAttributes;
+    private String superClass;
+    private ArrayList<String> interfaceList;
     
-	public CKList(String filePath, String className, int numberOfMethods, int linesOfCodes, int numberOfAttributes) {
+
+	public JCity(String filePath, String className, int numberOfMethods, int linesOfCodes, int numberOfAttributes) {
 		super();
 		this.filePath = filePath;
 		this.className = className;
+		this.line = 1;
 		this.numberOfMethods = numberOfMethods;
 		this.linesOfCodes = linesOfCodes;
 		this.numberOfAttributes = numberOfAttributes;
+	}
+
+
+
+	public ArrayList<String> getInterfaceList() {
+		return interfaceList;
+	}
+
+
+
+	public void setInterfaceList(ArrayList<String> interfaceList) {
+		this.interfaceList = interfaceList;
+	}
+
+
+
+	public String getSuperClass() {
+		return superClass;
+	}
+
+	public void setSuperClass(String superClass) {
+		this.superClass = superClass;
 	}
 
 	public String getFilePath() {
@@ -59,8 +88,20 @@ public class CKList {
 	@Override
     public String toString() {
         return "CKList [filePath=" + filePath + ", className=" + className + ", methods=" + numberOfMethods + ", linesOfCodes=" + linesOfCodes + ", attributes=" + numberOfAttributes
-                + "]";
+                + ", superClass=" + superClass + ", intefaceList=" + interfaceList + "]";
     }
+
+
+
+	public int getLine() {
+		return line;
+	}
+
+
+
+	public void setLine(int line) {
+		this.line = line;
+	}
     
 }
 

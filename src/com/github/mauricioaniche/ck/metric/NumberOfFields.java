@@ -1,9 +1,10 @@
 package com.github.mauricioaniche.ck.metric;
 
-import com.github.mauricioaniche.ck.CKClassResult;
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.jdt.core.dom.Modifier;
+
+import jcity.JClassResult;
 
 public class NumberOfFields extends ASTVisitor implements ClassLevelMetric {
 
@@ -52,7 +53,7 @@ public class NumberOfFields extends ASTVisitor implements ClassLevelMetric {
 	}
 
 	@Override
-	public void setResult(CKClassResult result) {
+	public void setResult(JClassResult result) {
 		result.setNumberOfFields(fields);
 		result.setNumberOfStaticFields(staticFields);
 		result.setNumberOfPublicFields(publicFields);

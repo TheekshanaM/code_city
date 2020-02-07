@@ -1,10 +1,15 @@
-package com.github.mauricioaniche.ck;
+package jcity;
 
 import com.github.mauricioaniche.ck.metric.ClassLevelMetric;
+
 import com.github.mauricioaniche.ck.metric.MethodLevelMetric;
-import com.github.mauricioaniche.ck.util.JDTUtils;
+
+import jcity.util.JDTUtils;
+
 import org.apache.commons.io.IOUtils;
 import org.eclipse.jdt.core.dom.*;
+
+import static jcity.util.LOCCalculator.calculate;
 
 import java.util.HashSet;
 import java.util.List;
@@ -12,20 +17,18 @@ import java.util.Set;
 import java.util.Stack;
 import java.util.concurrent.Callable;
 
-import static com.github.mauricioaniche.ck.util.LOCCalculator.calculate;
-
 public class CKVisitor extends ASTVisitor {
 
 	private String sourceFilePath;
 	private int anonymousNumber;
 
 	class MethodInTheStack {
-		CKMethodResult result;
+		JMethodResult result;
 		List<MethodLevelMetric> methodLevelMetrics;
 	}
 
 	class ClassInTheStack {
-		CKClassResult result;
+		JClassResult result;
 		List<ClassLevelMetric> classLevelMetrics;
 		Stack<MethodInTheStack> methods;
 
@@ -36,7 +39,7 @@ public class CKVisitor extends ASTVisitor {
 	}
 	private Stack<ClassInTheStack> classes;
 
-	private Set<CKClassResult> collectedClasses;
+	private Set<JClassResult> collectedClasses;
 
 	private CompilationUnit cu;
 	private Callable<List<ClassLevelMetric>> classLevelMetrics;
@@ -53,7 +56,6 @@ public class CKVisitor extends ASTVisitor {
 
 	@Override
 	public boolean visit(TypeDeclaration node) {
-		
 		ITypeBinding binding = node.resolveBinding();
 
 		// there might be metrics that use it
@@ -69,7 +71,7 @@ public class CKVisitor extends ASTVisitor {
 		String className = binding != null ? binding.getBinaryName() : node.getName().getFullyQualifiedName();
 		String type = getTypeOfTheUnit(node);
 		int modifiers = node.getModifiers();
-		CKClassResult currentClass = new CKClassResult(sourceFilePath, className, type, modifiers);
+		JClassResult currentClass = new JClassResult(sourceFilePath, className, type, modifiers);
 		currentClass.setLoc((int) JDTUtils.countLoc(node));
 
 		// create a set of visitors, just for the current class
@@ -114,7 +116,7 @@ public class CKVisitor extends ASTVisitor {
 		String currentMethodName = binding!=null ? JDTUtils.getMethodFullName(binding) : JDTUtils.getMethodFullName(node);
 		boolean isConstructor = node.isConstructor();
 
-		CKMethodResult currentMethod = new CKMethodResult(currentMethodName, isConstructor, node.getModifiers());
+		JMethodResult currentMethod = new JMethodResult(currentMethodName, isConstructor, node.getModifiers());
 		currentMethod.setLoc(calculate(IOUtils.toInputStream(node.toString())));
 		currentMethod.setStartLine(JDTUtils.getStartLine(cu, node));
 
@@ -163,7 +165,7 @@ public class CKVisitor extends ASTVisitor {
 
 		// we give the anonymous class a 'class$AnonymousN' name
 		String anonClassName = classes.peek().result.getClassName() + "$Anonymous" + ++anonymousNumber;
-		CKClassResult currentClass = new CKClassResult(sourceFilePath, anonClassName, "anonymous", -1);
+		JClassResult currentClass = new JClassResult(sourceFilePath, anonClassName, "anonymous", -1);
 		currentClass.setLoc((int) JDTUtils.countLoc(node));
 
 		// create a set of visitors, just for the current class
@@ -205,7 +207,7 @@ public class CKVisitor extends ASTVisitor {
 
 		String currentMethodName = "(initializer)";
 
-		CKMethodResult currentMethod = new CKMethodResult(currentMethodName, false, node.getModifiers());
+		JMethodResult currentMethod = new JMethodResult(currentMethodName, false, node.getModifiers());
 		currentMethod.setLoc(calculate(IOUtils.toInputStream(node.toString())));
 		currentMethod.setStartLine(JDTUtils.getStartLine(cu, node));
 
@@ -261,7 +263,7 @@ public class CKVisitor extends ASTVisitor {
 		String className = binding != null ? binding.getBinaryName() : node.getName().getFullyQualifiedName();
 		String type = "enum";
 		int modifiers = node.getModifiers();
-		CKClassResult currentClass = new CKClassResult(sourceFilePath, className, type, modifiers);
+		JClassResult currentClass = new JClassResult(sourceFilePath, className, type, modifiers);
 		currentClass.setLoc((int) JDTUtils.countLoc(node));
 
 		// create a set of visitors, just for the current class
@@ -314,7 +316,7 @@ public class CKVisitor extends ASTVisitor {
 		}
 	}
 
-	public Set<CKClassResult> getCollectedClasses() {
+	public Set<JClassResult> getCollectedClasses() {
 		return collectedClasses;
 	}
 

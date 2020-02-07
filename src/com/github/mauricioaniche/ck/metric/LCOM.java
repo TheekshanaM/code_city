@@ -1,7 +1,8 @@
 package com.github.mauricioaniche.ck.metric;
 
-import com.github.mauricioaniche.ck.CKClassResult;
 import org.eclipse.jdt.core.dom.*;
+
+import jcity.JClassResult;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -49,7 +50,7 @@ public class LCOM extends ASTVisitor implements ClassLevelMetric {
 	}
 	
 	@Override
-	public void setResult(CKClassResult result) {
+	public void setResult(JClassResult result) {
 		
 		/*
 		 * LCOM = |P| - |Q| if |P| - |Q| > 0

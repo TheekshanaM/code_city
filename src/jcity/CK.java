@@ -1,10 +1,12 @@
-package com.github.mauricioaniche.ck;
+package jcity;
 
 import com.github.mauricioaniche.ck.metric.ClassLevelMetric;
 import com.github.mauricioaniche.ck.metric.MethodLevelMetric;
-import com.github.mauricioaniche.ck.util.FileUtils;
-import com.github.mauricioaniche.ck.util.MetricsFinder;
 import com.google.common.collect.Lists;
+
+import jcity.util.FileUtils;
+import jcity.util.MetricsFinder;
+
 import org.apache.log4j.Logger;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.dom.AST;

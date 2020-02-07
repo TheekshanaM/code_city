@@ -1,10 +1,11 @@
 package com.github.mauricioaniche.ck.metric;
 
-import com.github.mauricioaniche.ck.CKMethodResult;
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.SimpleName;
 import org.eclipse.jdt.core.dom.SingleVariableDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationFragment;
+
+import jcity.JMethodResult;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -21,7 +22,7 @@ public class VariableOrParameterUsageCount extends ASTVisitor implements MethodL
 	}
 
 	@Override
-	public void setResult(CKMethodResult result) {
+	public void setResult(JMethodResult result) {
 		result.setVariablesUsage(occurrences);
 	}
 

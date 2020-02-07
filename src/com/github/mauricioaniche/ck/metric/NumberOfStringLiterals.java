@@ -1,9 +1,10 @@
 package com.github.mauricioaniche.ck.metric;
 
-import com.github.mauricioaniche.ck.CKClassResult;
-import com.github.mauricioaniche.ck.CKMethodResult;
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.StringLiteral;
+
+import jcity.JClassResult;
+import jcity.JMethodResult;
 
 public class NumberOfStringLiterals extends ASTVisitor implements ClassLevelMetric, MethodLevelMetric {
 
@@ -14,13 +15,13 @@ public class NumberOfStringLiterals extends ASTVisitor implements ClassLevelMetr
 		return super.visit(node);
 	}
 	@Override
-	public void setResult(CKMethodResult result) {
+	public void setResult(JMethodResult result) {
 		result.setStringLiteralsQty(qty);
 
 	}
 
 	@Override
-	public void setResult(CKClassResult result) {
+	public void setResult(JClassResult result) {
 		result.setStringLiteralsQty(qty);
 	}
 }

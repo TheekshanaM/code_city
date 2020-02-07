@@ -1,8 +1,9 @@
 package com.github.mauricioaniche.ck.metric;
 
-import com.github.mauricioaniche.ck.CKMethodResult;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 
+import jcity.JMethodResult;
+
 public interface MethodLevelMetric {
-	void setResult(CKMethodResult result);
+	void setResult(JMethodResult result);
 }

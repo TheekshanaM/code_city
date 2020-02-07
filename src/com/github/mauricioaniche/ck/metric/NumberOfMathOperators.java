@@ -1,9 +1,10 @@
 package com.github.mauricioaniche.ck.metric;
 
-import com.github.mauricioaniche.ck.CKClassResult;
-import com.github.mauricioaniche.ck.CKMethodResult;
 import org.eclipse.jdt.core.dom.ASTVisitor;
 import org.eclipse.jdt.core.dom.InfixExpression;
+
+import jcity.JClassResult;
+import jcity.JMethodResult;
 
 import java.util.Arrays;
 
@@ -29,12 +30,12 @@ public class NumberOfMathOperators extends ASTVisitor implements ClassLevelMetri
 	}
 
 	@Override
-	public void setResult(CKMethodResult result) {
+	public void setResult(JMethodResult result) {
 		result.setMathOperationsQty(qty);
 	}
 
 	@Override
-	public void setResult(CKClassResult result) {
+	public void setResult(JClassResult result) {
 		result.setMathOperationsQty(qty);
 	}
 }

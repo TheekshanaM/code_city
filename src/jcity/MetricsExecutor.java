@@ -1,4 +1,4 @@
-package com.github.mauricioaniche.ck;
+package jcity;
 
 import com.github.mauricioaniche.ck.metric.ClassLevelMetric;
 import com.github.mauricioaniche.ck.metric.MethodLevelMetric;
@@ -33,9 +33,9 @@ public class MetricsExecutor extends FileASTRequestor {
 			CKVisitor visitor = new CKVisitor(sourceFilePath, cu, classLevelMetrics, methodLevelMetrics);
 
 			cu.accept(visitor);
-			Set<CKClassResult> collectedClasses = visitor.getCollectedClasses();
+			Set<JClassResult> collectedClasses = visitor.getCollectedClasses();
 
-			for (CKClassResult collectedClass : collectedClasses) {
+			for (JClassResult collectedClass : collectedClasses) {
 				log.info(collectedClass);
 				notifier.notify(collectedClass);
 			}
