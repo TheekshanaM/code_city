@@ -34,27 +34,30 @@ public class SourceCodeLineCounter {
 		String line = null;
 
 		while ((line = bReader.readLine()) != null) {
-			line = line.trim();
-			if ("".equals(line) || line.startsWith("//")) {
-				continue;
-			}
-			if (commentBegan) {
-				if (commentEnded(line)) {
-					line = line.substring(line.indexOf("*/") + 2).trim();
-					commentBegan = false;
-					if ("".equals(line) || line.startsWith("//")) {
-						continue;
-					}
-				} else
-					continue;
-			}
-			if (isSourceCodeLine(line)) {
-				count++;
-			}
-			if (commentBegan(line)) {
-				commentBegan = true;
-			}
+			
+			count++;
+//			line = line.trim();
+//			if ("".equals(line) || line.startsWith("//")) {
+//				continue;
+//			}
+//			if (commentBegan) {
+//				if (commentEnded(line)) {
+//					line = line.substring(line.indexOf("*/") + 2).trim();
+//					commentBegan = false;
+//					if ("".equals(line) || line.startsWith("//")) {
+//						continue;
+//					}
+//				} else
+//					continue;
+//			}
+//			if (isSourceCodeLine(line)) {
+//				count++;
+//			}
+//			if (commentBegan(line)) {
+//				commentBegan = true;
+//			}
 		}
+		
 		return count;
 	}
 

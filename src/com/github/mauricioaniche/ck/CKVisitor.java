@@ -53,6 +53,7 @@ public class CKVisitor extends ASTVisitor {
 
 	@Override
 	public boolean visit(TypeDeclaration node) {
+		
 		ITypeBinding binding = node.resolveBinding();
 
 		// there might be metrics that use it

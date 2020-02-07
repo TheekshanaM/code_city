@@ -26,6 +26,8 @@ public class Node {
 		String url;
 		@Expose(serialize = true)
 		public ArrayList<String> commits;
+		@Expose(serialize = true)
+		public String path;
 		@Expose(serialize = false)
 		String branch;
 		@Expose(serialize = true)
@@ -96,6 +98,7 @@ public class Node {
 			NodeInfo classNodeObj = new NodeInfo();
 			classNodeObj.name = className;
 			classNodeObj.type = classType;
+			classNodeObj.path = getpath(entity.getKey(),pathlist[0]);
 			classNodeObj.children = new ArrayList<NodeInfo>();
 			classNodeObj.childrenMap = new HashMap<String, NodeInfo>();
 			classNodeObj.line = entity.getValue().line;
@@ -112,6 +115,9 @@ public class Node {
 		return tree;
 	}
 	
+	String getpath(String path, String folder) {
+		return path.substring(0, path.indexOf('?')).replace(folder+"/", "");
+	}
 	String getFileName(String[] fullPath) {
 		String value = fullPath[fullPath.length-1];
 		value = value.substring(0, value.indexOf('?'));
@@ -140,7 +146,8 @@ public class Node {
 	
 	String[] getNodeURL(NodeInfo node , String parentPath){
 		if (node.type == classType) {
-			String formatted = parentPath.replace("{{TYPE}}", "blob")+"#L"+ node.line;
+			String formatted = parentPath.replace("{{TYPE}}", "blob");
+//			+"#L"+ node.line
 			return new String[] {formatted,formatted};
 		}
 		String raw;

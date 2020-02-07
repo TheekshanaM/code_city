@@ -4,6 +4,7 @@ import com.github.mauricioaniche.ck.util.ResultWriter;
 
 import dataExtractor.ClassDetails;
 
+import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
@@ -30,6 +31,11 @@ public class Runner {
 				try {
 //				    writer.printResultNuwan(result);
 				    String file = result.getFile();
+				    BufferedReader reader = new BufferedReader(new FileReader(file));
+				    int loc = 0;
+				    while (reader.readLine() != null) loc++;
+				    reader.close();
+				    
 				    file = file.replace((path), repo);
 				    file = file.replace('\\', '/');
 				    
@@ -38,7 +44,7 @@ public class Runner {
 				    	className = className.substring(className.lastIndexOf('.')+1);
 				    }
 				    
-				    int loc = result.getLoc();
+//				    int loc = result.getLoc();
 				    int methods = result.getNumberOfMethods();
 				    int variables = result.getVariablesQty();
 				    

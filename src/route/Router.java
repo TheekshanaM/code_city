@@ -15,6 +15,9 @@ import javax.ws.rs.core.Response;
 //import org.dstadler.jgit.helper.CookbookHelper;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.lib.Repository;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import com.github.mauricioaniche.ck.Runner;
 import com.google.gson.Gson;
@@ -25,6 +28,7 @@ import dataExtractor.JsonClass;
 //import handler.Hadler;
 import positionService.Node;
 import repositoryDataAnalyser.CloneRemoteRepository;
+import repositoryDataAnalyser.FileChanges;
 import repositoryDataAnalyser.GetAllCommits;
 import repositoryDataAnalyser.Helper;
 
@@ -109,5 +113,37 @@ public class Router {
     	            .build();
 		}
 		
+	}
+	
+	@GET
+	@Path("/filedifferent/{class}/{newcommit}/{oldcommit}/{loc}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getFileDifferent(@PathParam("class") String calssName,@PathParam("newcommit") String newCommit,@PathParam("oldcommit") String oldCommit, @PathParam("loc") int linesOfCode) {
+		FileChanges diffObj = new FileChanges();
+		String diff = diffObj.getFileDiff(calssName, newCommit, oldCommit, linesOfCode);
+		
+		JSONParser parser = new JSONParser();
+	   	 try {
+				JSONObject json = (JSONObject) parser.parse(diff);
+				return Response
+	    	            .status(200)
+	    	            .header("Access-Control-Allow-Origin", "*")
+	    	            .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+	    	            .header("Access-Control-Allow-Credentials", "true")
+	    	            .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
+	    	            .header("Access-Control-Max-Age", "1209600")
+	    	            .entity(json)
+	    	            .build();
+	   	 } catch (ParseException e) {
+	   		return Response
+    	            .status(200)
+    	            .header("Access-Control-Allow-Origin", "*")
+    	            .header("Access-Control-Allow-Headers", "origin, content-type, accept, authorization")
+    	            .header("Access-Control-Allow-Credentials", "true")
+    	            .header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS, HEAD")
+    	            .header("Access-Control-Max-Age", "1209600")
+    	            .entity(null)
+    	            .build();
+	   	 }
 	}
 }
