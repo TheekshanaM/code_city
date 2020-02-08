@@ -50,7 +50,7 @@ public class Runner {
 				    JCity ckList = new JCity(file, className, methods, loc, variables);
 				    newList.put(file+"?"+className, ckList);
 				    
-				    System.out.println(ckList.toString());
+//				    System.out.println(ckList.toString());
 	 
 				    
 				   
@@ -68,7 +68,14 @@ public class Runner {
 			
 			for (HashMap.Entry<String, String> item : extendList.entrySet()) {
 				String className =  item.getKey();
+				if(className.lastIndexOf('.') != -1) {
+			    	className = className.substring(className.lastIndexOf('.')+1);
+			    }
 				String superClass = item.getValue();
+				if(superClass.lastIndexOf('.') != -1) {
+					superClass = superClass.substring(superClass.lastIndexOf('.')+1);
+					superClass = superClass.trim();
+			    }
 				
 				
 				for (HashMap.Entry<String, JCity> jcity : newList.entrySet()) {
@@ -89,7 +96,14 @@ public class Runner {
 				ArrayList<String> interfaceList = new ArrayList<String>();
 				for (Map.Entry<String, String> item : implementList.entries()) {
 					String className = item.getKey();
+					if(className.lastIndexOf('.') != -1) {
+				    	className = className.substring(className.lastIndexOf('.')+1);
+				    }
 					String interfaceName = item.getValue();
+					if(interfaceName.lastIndexOf('.') != -1) {
+						interfaceName = interfaceName.substring(interfaceName.lastIndexOf('.')+1);
+						interfaceName = interfaceName.trim();
+				    }
 					
 					if (classBuilding.getClassName().equalsIgnoreCase(className)) {
 						interfaceList.add(interfaceName);	

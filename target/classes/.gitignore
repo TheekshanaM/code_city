@@ -1,7 +1,6 @@
 /com/
-/dataExtractor/
-/positionService/
-/repositoryDataAnalyser/
+/jcity/
 /route/
 /dependency/
-/jcity/
+/positionService/
+/repositoryDataAnalyser/

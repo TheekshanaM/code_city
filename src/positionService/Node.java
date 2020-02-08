@@ -53,6 +53,14 @@ public class Node {
 		int line;
 		@Expose(serialize = false)
 		HashMap<String,NodeInfo> childrenMap;
+		@Expose(serialize = true)
+		String superClass;
+		@Expose(serialize = true)
+		ArrayList<String> interfaces;
+		@Expose(serialize = true)
+		ArrayList<String> supperClassList;
+		@Expose(serialize = true)
+		ArrayList<String> interfacesList;
 	}
 	public NodeInfo create(HashMap<String,JCity> items,String repositoryName,String repositoryBranch) {
 		tree = new NodeInfo();
@@ -64,8 +72,21 @@ public class Node {
 		tree.position = new HashMap<String, Float>();
 		tree.position.put("x",(float)0);
 		tree.position.put("y", (float)0);
+		tree.supperClassList = new ArrayList<String>();
+		tree.supperClassList.add("Select a class");
+		tree.interfacesList = new ArrayList<String>();
+		tree.interfacesList.add("Select a Interface");
 		
 		for(Map.Entry<String, JCity> entity : items.entrySet()) {
+			
+			String tempSuperClass =entity.getValue().getSuperClass();
+			ArrayList<String> tempIntefaces = entity.getValue().getInterfaceList(); 
+			if(tempSuperClass!= null) {
+				addSuppeClass(tempSuperClass);
+			}
+			if(tempIntefaces.size() !=0) {
+				addInterface(tempIntefaces);
+			}
 //			System.out.println(entity.getKey());
 			NodeInfo currentNode = tree;
 			String[] pathlist= entity.getKey().split("/");
@@ -107,6 +128,8 @@ public class Node {
 			classNodeObj.numberOfAttributes = entity.getValue().getNumberOfAttributes();
 			classNodeObj.numberOfMethods = entity.getValue().getNumberOfMethods();
 			classNodeObj.numberOfLines = entity.getValue().getLinesOfCodes();
+			classNodeObj.superClass = entity.getValue().getSuperClass();
+			classNodeObj.interfaces = entity.getValue().getInterfaceList();
 			
 			fileNode.childrenMap.put(fileName, classNodeObj);
 //			System.out.println(fileNode.childrenMap.get(fileName).name);
@@ -117,6 +140,46 @@ public class Node {
 		return tree;
 	}
 	
+	void addInterface(ArrayList<String> interfaceList) {
+		boolean status = false;
+		for(String item:interfaceList) {
+			for(String data:tree.interfacesList) {
+				if(item.equals(data)) {
+					status =true;
+				}
+				
+			}
+			if(status == false) {
+				tree.interfacesList.add(item);break;
+			}
+//			if(tree.interfacesList.size()==0) {
+////				for(String item2:interfaceList) {
+//					tree.interfacesList.add(item);
+////				}
+//			}
+			status = false;
+		}
+		
+		
+	}
+
+	void addSuppeClass(String value) {
+		boolean status = false;
+		for(String item:tree.supperClassList) {
+			if(item.equals(value) ) {
+				status =true;
+			}
+		}
+		if(status == false) {
+			tree.supperClassList.add(value);
+		}
+		status = false;
+//		if(tree.supperClassList.size()==0) {
+//			tree.supperClassList.add(value);
+//		}
+		
+	}
+
 	String getpath(String path, String folder) {
 		return path.substring(0, path.indexOf('?')).replace(folder+"/", "");
 	}
