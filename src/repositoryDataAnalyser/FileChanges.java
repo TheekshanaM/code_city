@@ -47,7 +47,9 @@ public class FileChanges {
 	            ArrayList<String> fileList = new ArrayList<String>();
 	            if(diffEntries.size() !=0) {
 	            	for (DiffEntry entry : diffEntries) {
-	                    fileList.add(entry.getNewPath());
+	            		if(entry.getNewPath().indexOf("null") == -1) {
+	            			fileList.add(entry.getNewPath());
+	            		}
 //	                    System.out.println(entry.getOldPath()+"  "+ entry.getNewPath());
 	                }
 	            	diffFormatter.close();

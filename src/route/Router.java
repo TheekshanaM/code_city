@@ -127,6 +127,7 @@ public class Router {
     		        .excludeFieldsWithoutExposeAnnotation()
     		        .create();
     		
+    		System.out.println(gson.toJson(cityObj));
     		return Response
     	            .status(200)
     	            .header("Access-Control-Allow-Origin", "*")
