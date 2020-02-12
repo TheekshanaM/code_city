@@ -51,10 +51,28 @@ public class Router {
 		HashMap<String, JCity> extractedData = new HashMap<String, JCity>();
 		Runner runner = new Runner();
 		extractedData = runner.runMethod(repository);
+		ArrayList<String> commitList = new GetAllCommits().getCommits();
+		
+		if(commitList.size() > 1) {
+			ArrayList<String> fileList = new FileChanges().getChangedFile(commitList.get(0), commitList.get(1));
+			if(fileList != null) {
+				for(String file : fileList) {
+					if(file.lastIndexOf('/') ==-1) {
+						file = repository+"/"+file+"?"+file.substring(0, file.lastIndexOf('.'));
+					}else {
+						file = repository+"/"+file+"?"+file.substring(file.lastIndexOf('/')+1, file.lastIndexOf('.'));
+					}
+					if(extractedData.get(file) != null) {
+						extractedData.get(file).setFillDiffStatus(true);
+					}
+				}
+			}
+		}
+		
 		Node node = new Node();
 		Node.NodeInfo cityObj = node.create(extractedData, url, "master");
 		
-		ArrayList<String> commitList = new GetAllCommits().getCommits();
+		
 		cityObj.commits = commitList;
 		
 		Gson gson = new GsonBuilder()
@@ -73,9 +91,9 @@ public class Router {
 	}
 	
 	@GET
-	@Path("/changecity/{rOwner}/{repo}/{CommitId}")
+	@Path("/changecity/{rOwner}/{repo}/{CommitId}/{oldcommit}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response changeCodeCity(@PathParam("rOwner") String ROwner,@PathParam("repo") String repository, @PathParam("CommitId") String comitId) {
+	public Response changeCodeCity(@PathParam("rOwner") String ROwner,@PathParam("repo") String repository, @PathParam("CommitId") String comitId, @PathParam("oldcommit") String oldCommit) {
 		
 		try {
 			String url = "https://github.com/"+ROwner+"/"+repository;
@@ -87,6 +105,21 @@ public class Router {
         	HashMap<String, JCity> extractedData = new HashMap<String, JCity>();
     		Runner runner = new Runner();
     		extractedData = runner.runMethod(repository);
+    		
+    		ArrayList<String> fileList = new FileChanges().getChangedFile(comitId, oldCommit);
+			if(fileList != null) {
+				for(String file : fileList) {
+					if(file.lastIndexOf('/') ==-1) {
+						file = repository+"/"+file+"?"+file.substring(0, file.lastIndexOf('.'));
+					}else {
+						file = repository+"/"+file+"?"+file.substring(file.lastIndexOf('/')+1, file.lastIndexOf('.'));
+					}
+					if(extractedData.get(file) != null) {
+						extractedData.get(file).setFillDiffStatus(true);
+					}
+				}
+			}
+    		
     		Node node = new Node();
     		Node.NodeInfo cityObj = node.create(extractedData, url, "master");
     		

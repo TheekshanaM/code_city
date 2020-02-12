@@ -1,6 +1,7 @@
 package repositoryDataAnalyser;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 //import org.dstadler.jgit.helper.CookbookHelper;
@@ -26,6 +27,44 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 public class FileChanges {
+	
+	public ArrayList<String> getChangedFile(String newCommit,String oldCommit) {
+		try {
+			try (Repository repository = Helper.openJGitCookbookRepository()) {
+	            // the diff works on TreeIterators, we prepare two for the two branches
+	            AbstractTreeIterator oldTreeParser = prepareTreeParser(repository, oldCommit);
+	            AbstractTreeIterator newTreeParser = prepareTreeParser(repository, newCommit);
+	            
+	            DiffFormatter diffFormatter = new DiffFormatter( DisabledOutputStream.INSTANCE ); 
+	            diffFormatter.setRepository( repository );
+	            	 
+	            Git git = new Git(repository);
+	            List<DiffEntry> diffEntries = git.diff().
+	                       setOldTree(oldTreeParser).
+	                       setNewTree(newTreeParser).
+	                       call();
+	            
+	            ArrayList<String> fileList = new ArrayList<String>();
+	            if(diffEntries.size() !=0) {
+	            	for (DiffEntry entry : diffEntries) {
+	                    fileList.add(entry.getNewPath());
+//	                    System.out.println(entry.getOldPath()+"  "+ entry.getNewPath());
+	                }
+	            	diffFormatter.close();
+		            git.close();
+		            return fileList;
+	            }else {
+					return null;
+				}
+	            
+	            
+			}
+		} catch (Exception e) {
+			return null;
+		}
+		
+	}
+	
 	public String getFileDiff(String classPath, String newCommit,String oldCommit,int lastLine) {
         
 		try {

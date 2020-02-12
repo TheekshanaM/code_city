@@ -11,6 +11,7 @@ public class JCity {
     private int numberOfAttributes;
     private String superClass;
     private ArrayList<String> interfaceList;
+    private boolean fillDiffStatus;
     
 
 	public JCity(String filePath, String className, int numberOfMethods, int linesOfCodes, int numberOfAttributes) {
@@ -21,6 +22,7 @@ public class JCity {
 		this.numberOfMethods = numberOfMethods;
 		this.linesOfCodes = linesOfCodes;
 		this.numberOfAttributes = numberOfAttributes;
+		this.fillDiffStatus= false;
 	}
 
 
@@ -101,6 +103,18 @@ public class JCity {
 
 	public void setLine(int line) {
 		this.line = line;
+	}
+
+
+
+	public boolean isFillDiffStatus() {
+		return fillDiffStatus;
+	}
+
+
+
+	public void setFillDiffStatus(boolean fillDiffStatus) {
+		this.fillDiffStatus = fillDiffStatus;
 	}
     
 }

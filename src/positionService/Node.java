@@ -61,6 +61,8 @@ public class Node {
 		ArrayList<String> supperClassList;
 		@Expose(serialize = true)
 		ArrayList<String> interfacesList;
+		@Expose(serialize = true)
+		boolean fillDiffStatus;
 	}
 	public NodeInfo create(HashMap<String,JCity> items,String repositoryName,String repositoryBranch) {
 		tree = new NodeInfo();
@@ -130,6 +132,7 @@ public class Node {
 			classNodeObj.numberOfLines = entity.getValue().getLinesOfCodes();
 			classNodeObj.superClass = entity.getValue().getSuperClass();
 			classNodeObj.interfaces = entity.getValue().getInterfaceList();
+			classNodeObj.fillDiffStatus = entity.getValue().isFillDiffStatus();
 			
 			fileNode.childrenMap.put(fileName, classNodeObj);
 //			System.out.println(fileNode.childrenMap.get(fileName).name);
