@@ -46,7 +46,7 @@ public class Router {
 		CloneRemoteRepository repo = new CloneRemoteRepository();
 		String url = "https://github.com/"+ROwner+"/"+repository;
 //		link =url;
-		repo.cloneRepo(url);
+//		repo.cloneRepo(url);
 		
 		HashMap<String, JCity> extractedData = new HashMap<String, JCity>();
 		Runner runner = new Runner();
@@ -70,7 +70,7 @@ public class Router {
 		}
 		
 		Node node = new Node();
-		Node.NodeInfo cityObj = node.create(extractedData, url, "master");
+		Node.NodeInfo cityObj = node.create(extractedData, url, "master",repository);
 		
 		
 		cityObj.commits = commitList;
@@ -121,7 +121,7 @@ public class Router {
 			}
     		
     		Node node = new Node();
-    		Node.NodeInfo cityObj = node.create(extractedData, url, "master");
+    		Node.NodeInfo cityObj = node.create(extractedData, url, "master",repository);
     		
     		Gson gson = new GsonBuilder()
     		        .excludeFieldsWithoutExposeAnnotation()

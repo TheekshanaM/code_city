@@ -64,7 +64,7 @@ public class Node {
 		@Expose(serialize = true)
 		boolean fillDiffStatus;
 	}
-	public NodeInfo create(HashMap<String,JCity> items,String repositoryName,String repositoryBranch) {
+	public NodeInfo create(HashMap<String,JCity> items,String repositoryName,String repositoryBranch,String repositary) {
 		tree = new NodeInfo();
 		tree.name = repositoryName;
 		tree.url = "";
@@ -138,7 +138,7 @@ public class Node {
 //			System.out.println(fileNode.childrenMap.get(fileName).name);
 		}
 		
-		GenerateChildList(tree,"https://"+repositoryName+"/{{TYPE}}/"+repositoryBranch);
+		GenerateChildList(tree,repositoryName+"/{{TYPE}}/"+repositoryBranch,repositary);
 		GenerateChildrenPosition(tree);
 		return tree;
 	}
@@ -199,27 +199,28 @@ public class Node {
 		
 	}
 	
-	void GenerateChildList(NodeInfo n,String parentPath) {
+	void GenerateChildList(NodeInfo n,String parentPath, String repositary) {
 		for ( Map.Entry<String, NodeInfo> child : n.childrenMap.entrySet()) {
-			String[] noderes = getNodeURL(child.getValue(), parentPath);
+			String[] noderes = getNodeURL(child.getValue(), parentPath, repositary);
 			String baseName = noderes[0];
 			String nodeURL = noderes[1];
 			child.getValue().url = nodeURL;
 			n.children.add(child.getValue());
 			if((child.getValue().childrenMap.size()) > 0 ){
-				GenerateChildList(child.getValue(),baseName);
+				GenerateChildList(child.getValue(),baseName,repositary);
 			}
 		}
 	}
 	
-	String[] getNodeURL(NodeInfo node , String parentPath){
+	String[] getNodeURL(NodeInfo node , String parentPath,String repositary){
 		if (node.type == classType) {
 			String formatted = parentPath.replace("{{TYPE}}", "blob");
 //			+"#L"+ node.line
 			return new String[] {formatted,formatted};
 		}
 		String raw;
-		if (node.name.length() > 0) {
+//		System.out.println(node.name.equalsIgnoreCase(repositary) );
+		if (node.name.length() > 0 && !node.name.equalsIgnoreCase(repositary)) {
 			raw = parentPath+"/"+ node.name;
 		} else {
 			raw = parentPath;
