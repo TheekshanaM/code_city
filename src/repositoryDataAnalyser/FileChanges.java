@@ -123,7 +123,7 @@ public class FileChanges {
 	           		    		  notChanged += "{\"x\": \"Current version\",\"y\": ["+lastIndex+","+ beginA+"]},";
 	           		    		  notChangeStatus=true;
 	           		    	  }
-	           		    	  lastIndex=endA;
+	           		    	  lastIndex=beginA;
 	           		      }
 	           		      if(edit.getType().toString()=="REPLACE") {
 	           		    	  beginA = edit.getBeginA();

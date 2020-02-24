@@ -14,7 +14,7 @@ import positionService.Position.Positions;
 import positionService.Position.generator;
 
 public class Node {
-	String classType = "STRUCT";
+	String classType = "CLASS";
 	String FileType = "FILE";
 	String PackageType = "PACKAGE";
 	
