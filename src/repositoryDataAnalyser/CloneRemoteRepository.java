@@ -17,7 +17,7 @@ public class CloneRemoteRepository {
 //                throw new IOException("Could not delete temporary file " + localPath);
 //            }
 
-            File path = new File("E:\\Document\\Theekshana\\Research\\gitrepo");
+            File path = new File(Helper.localPath);
     	    if (path.exists()) {
     	        FileUtils.deleteDirectory(path);
     	    }
@@ -25,7 +25,7 @@ public class CloneRemoteRepository {
 //            System.out.println("Cloning from " + REMOTE_URL + " to " + localPath);
             try (Git result = Git.cloneRepository()
                     .setURI(repositoryURL)
-                    .setDirectory(new File("E:\\Document\\Theekshana\\Research\\gitrepo")) // #1
+                    .setDirectory(path) // #1
                     .call();) {
             	result.getRepository().close();
     	        // Note: the call() returns an opened repository already which needs to be closed to avoid file handle leaks!

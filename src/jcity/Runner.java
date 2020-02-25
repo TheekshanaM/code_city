@@ -15,13 +15,14 @@ import com.google.common.collect.Multimap;
 import dependency.exception.DCLException;
 import dependency.main.Main;
 import jcity.util.ResultWriter;
+import repositoryDataAnalyser.Helper;
 
 public class Runner {
 
 	public HashMap<String, JCity> runMethod(String repo){ 
 
 		try {
-			String path = "E:\\Document\\Theekshana\\Research\\gitrepo";
+			String path = Helper.localPath;
 			boolean useJars = false;
 			
 			HashMap<String, JCity> newList = new HashMap<String, JCity>();
@@ -38,7 +39,8 @@ public class Runner {
 				    file = file.replace((path), repo);
 				    file = file.replace('\\', '/');
 				    
-				    String className = result.getClassName();
+				    String classPath = result.getClassName();
+				    String className = classPath;
 				    if(className.lastIndexOf('.') != -1) {
 				    	className = className.substring(className.lastIndexOf('.')+1);
 				    }
@@ -47,7 +49,7 @@ public class Runner {
 				    int variables = result.getVariablesQty();
 				 
 				    
-				    JCity ckList = new JCity(file, className, methods, loc, variables);
+				    JCity ckList = new JCity(file, classPath, methods, loc, variables);
 				    newList.put(file+"?"+className, ckList);
 				    
 //				    System.out.println(ckList.toString());
@@ -68,20 +70,21 @@ public class Runner {
 			
 			for (HashMap.Entry<String, String> item : extendList.entrySet()) {
 				String className =  item.getKey();
-				if(className.lastIndexOf('.') != -1) {
-			    	className = className.substring(className.lastIndexOf('.')+1);
-			    }
+//				if(className.lastIndexOf('.') != -1) {
+//			    	className = className.substring(className.lastIndexOf('.')+1);
+//			    }
 				String superClass = item.getValue();
-				if(superClass.lastIndexOf('.') != -1) {
-					superClass = superClass.substring(superClass.lastIndexOf('.')+1);
-					superClass = superClass.trim();
-			    }
+				
 				
 				
 				for (HashMap.Entry<String, JCity> jcity : newList.entrySet()) {
 					JCity classBuilding = jcity.getValue();
 					
 					if (classBuilding.getClassName().equalsIgnoreCase(className)) {
+						if(superClass.lastIndexOf('.') != -1) {
+							superClass = superClass.substring(superClass.lastIndexOf('.')+1);
+							superClass = superClass.trim();
+					    }
 						classBuilding.setSuperClass(superClass);
 						
 					}	
@@ -96,16 +99,16 @@ public class Runner {
 				ArrayList<String> interfaceList = new ArrayList<String>();
 				for (Map.Entry<String, String> item : implementList.entries()) {
 					String className = item.getKey();
-					if(className.lastIndexOf('.') != -1) {
-				    	className = className.substring(className.lastIndexOf('.')+1);
-				    }
+//					if(className.lastIndexOf('.') != -1) {
+//				    	className = className.substring(className.lastIndexOf('.')+1);
+//				    }
 					String interfaceName = item.getValue();
-					if(interfaceName.lastIndexOf('.') != -1) {
-						interfaceName = interfaceName.substring(interfaceName.lastIndexOf('.')+1);
-						interfaceName = interfaceName.trim();
-				    }
 					
 					if (classBuilding.getClassName().equalsIgnoreCase(className)) {
+						if(interfaceName.lastIndexOf('.') != -1) {
+							interfaceName = interfaceName.substring(interfaceName.lastIndexOf('.')+1);
+							interfaceName = interfaceName.trim();
+					    }
 						interfaceList.add(interfaceName);	
 					}	
 						
