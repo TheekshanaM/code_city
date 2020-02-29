@@ -2,6 +2,7 @@ package positionService;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 import com.google.gson.annotations.Expose;
@@ -63,6 +64,10 @@ public class Node {
 		ArrayList<String> interfacesList;
 		@Expose(serialize = true)
 		boolean fillDiffStatus;
+		@Expose(serialize = true)
+		HashMap<String, HashSet<String>> methodBugList;
+		@Expose(serialize = true)
+		boolean bugStatus;
 	}
 	public NodeInfo create(HashMap<String,JCity> items,String repositoryName,String repositoryBranch,String repositary) {
 		tree = new NodeInfo();
@@ -133,6 +138,8 @@ public class Node {
 			classNodeObj.superClass = entity.getValue().getSuperClass();
 			classNodeObj.interfaces = entity.getValue().getInterfaceList();
 			classNodeObj.fillDiffStatus = entity.getValue().isFillDiffStatus();
+			classNodeObj.bugStatus = entity.getValue().isBugStatus();
+			classNodeObj.methodBugList = entity.getValue().getMethodBugList();
 			
 			fileNode.childrenMap.put(fileName, classNodeObj);
 //			System.out.println(fileNode.childrenMap.get(fileName).name);

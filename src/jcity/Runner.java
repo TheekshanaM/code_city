@@ -6,12 +6,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 import org.eclipse.core.runtime.CoreException;
 
 import com.google.common.collect.Multimap;
 
+import Designite.Designite;
 import dependency.exception.DCLException;
 import dependency.main.Main;
 import jcity.util.ResultWriter;
@@ -50,7 +52,9 @@ public class Runner {
 				 
 				    
 				    JCity ckList = new JCity(file, classPath, methods, loc, variables);
-				    newList.put(file+"?"+className, ckList);
+				    if(!className.contains("$")) {
+				    	newList.put(file+"?"+className, ckList);
+				    }
 				    
 //				    System.out.println(ckList.toString());
 	 
@@ -67,6 +71,9 @@ public class Runner {
 			
 			HashMap<String, String> extendList = main.getExtendedlist(depLsit);
 			Multimap<String, String> implementList = main.getImplementedlist(depLsit);
+			
+			Designite designite = new Designite();
+			Map<String, HashMap<String, HashSet<String>>> bugList =  designite.designiteRun(path);
 			
 			for (HashMap.Entry<String, String> item : extendList.entrySet()) {
 				String className =  item.getKey();
@@ -97,6 +104,12 @@ public class Runner {
 			for (HashMap.Entry<String, JCity> jcity : newList.entrySet()) {
 				JCity classBuilding = jcity.getValue();
 				ArrayList<String> interfaceList = new ArrayList<String>();
+				
+				if(bugList.get(classBuilding.getClassName()) != null) {
+					classBuilding.setMethodBugList(bugList.get(classBuilding.getClassName()));
+					classBuilding.setBugStatus(true);
+				}
+				
 				for (Map.Entry<String, String> item : implementList.entries()) {
 					String className = item.getKey();
 //					if(className.lastIndexOf('.') != -1) {
@@ -116,10 +129,10 @@ public class Runner {
 				classBuilding.setInterfaceList(interfaceList);
 			}
 			
-			for (String string : depLsit) {
-				System.out.println(string);
-			}
-		
+//			for (String string : depLsit) {
+//				System.out.println(string);
+//			}
+//		
 			for (HashMap.Entry<String, JCity> jcity : newList.entrySet()) {
 				JCity classBuilding = jcity.getValue();
 				

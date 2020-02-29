@@ -1,6 +1,8 @@
 package jcity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 
 public class JCity {
 	private String filePath;
@@ -12,6 +14,8 @@ public class JCity {
     private String superClass;
     private ArrayList<String> interfaceList;
     private boolean fillDiffStatus;
+    private HashMap<String, HashSet<String>> methodBugList;
+    private boolean bugStatus;
     
 
 	public JCity(String filePath, String className, int numberOfMethods, int linesOfCodes, int numberOfAttributes) {
@@ -23,9 +27,24 @@ public class JCity {
 		this.linesOfCodes = linesOfCodes;
 		this.numberOfAttributes = numberOfAttributes;
 		this.fillDiffStatus= false;
+		this.bugStatus = false;
 	}
 
+	public HashMap<String, HashSet<String>> getMethodBugList() {
+		return methodBugList;
+	}
 
+	public boolean isBugStatus() {
+		return bugStatus;
+	}
+
+	public void setBugStatus(boolean bugStatus) {
+		this.bugStatus = bugStatus;
+	}
+
+	public void setMethodBugList(HashMap<String, HashSet<String>> methodBugList) {
+		this.methodBugList = methodBugList;
+	}
 
 	public ArrayList<String> getInterfaceList() {
 		return interfaceList;
