@@ -69,7 +69,7 @@ public class Node {
 		@Expose(serialize = true)
 		boolean bugStatus;
 	}
-	public NodeInfo create(HashMap<String,JCity> items,String repositoryName,String repositoryBranch,String repositary) {
+	public NodeInfo create(HashMap<String,JCity> items,String repositoryName,String repositoryBranch,String repositary, String commit) {
 		tree = new NodeInfo();
 		tree.name = repositoryName;
 		tree.url = "";
@@ -145,7 +145,7 @@ public class Node {
 //			System.out.println(fileNode.childrenMap.get(fileName).name);
 		}
 		
-		GenerateChildList(tree,repositoryName+"/{{TYPE}}/"+repositoryBranch,repositary);
+		GenerateChildList(tree,repositoryName+"/{{TYPE}}/"+commit,repositary);
 		GenerateChildrenPosition(tree);
 		return tree;
 	}

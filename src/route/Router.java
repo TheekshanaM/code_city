@@ -70,7 +70,7 @@ public class Router {
 		}
 		
 		Node node = new Node();
-		Node.NodeInfo cityObj = node.create(extractedData, url, "master",repository);
+		Node.NodeInfo cityObj = node.create(extractedData, url, "master",repository,commitList.get(0));
 		
 		
 		cityObj.commits = commitList;
@@ -121,7 +121,7 @@ public class Router {
 			}
     		
     		Node node = new Node();
-    		Node.NodeInfo cityObj = node.create(extractedData, url, "master",repository);
+    		Node.NodeInfo cityObj = node.create(extractedData, url, "master",repository, comitId);
     		
     		Gson gson = new GsonBuilder()
     		        .excludeFieldsWithoutExposeAnnotation()
