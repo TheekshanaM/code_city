@@ -424,7 +424,7 @@ public class SM_Type extends SM_SourceItem implements Vertex {
 				for (ImplementationCodeSmell item : smellList) {
 					
 					key1 = item.getPackageName()+"."+item.getTypeName();
-					key2 = key1+"."+item.getMethodName();
+					key2 = item.getMethodName();
 					value = item.getSmellName();
 //					key2 = item.getSmellName();
 //					value = item.getMethodName();
