@@ -20,7 +20,16 @@ public class Node {
 	String PackageType = "PACKAGE";
 	
 	NodeInfo tree;
+	Structure strTree;
 	
+	public static class Structure{
+		@Expose(serialize = true)
+		String name;
+		@Expose(serialize = false)
+		HashMap<String, Structure> childrenMap;
+		@Expose(serialize = true)
+		ArrayList<Structure> children;
+	}
 	public static class NodeInfo{
 		@Expose(serialize = true)
 		String name;
@@ -28,6 +37,8 @@ public class Node {
 		String url;
 		@Expose(serialize = true)
 		public ArrayList<String> commits;
+		@Expose(serialize = true)
+		public Structure structure;
 		@Expose(serialize = true)
 		public String path;
 		@Expose(serialize = false)
@@ -84,6 +95,11 @@ public class Node {
 		tree.interfacesList = new ArrayList<String>();
 		tree.interfacesList.add("Select a Interface");
 		
+		strTree = new Structure();
+		strTree.name = "start";
+		strTree.childrenMap = new HashMap<String, Node.Structure>();
+		strTree.children = new ArrayList<Node.Structure>();
+		
 		for(Map.Entry<String, JCity> entity : items.entrySet()) {
 			
 			String tempSuperClass =entity.getValue().getSuperClass();
@@ -96,6 +112,7 @@ public class Node {
 			}
 //			System.out.println(entity.getKey());
 			NodeInfo currentNode = tree;
+			Structure currentItem = strTree;
 			String[] pathlist= entity.getKey().split("/");
 			
 			for(int i=0; i<pathlist.length-1 ; i++) {
@@ -108,9 +125,16 @@ public class Node {
 					childNode.children = new ArrayList<NodeInfo>();
 					currentNode.childrenMap.put(pathlist[i],childNode);
 				}
-				
+				if(currentItem.childrenMap.get(pathlist[i]) == null){
+					Structure childItem = new Structure();
+					childItem.name = pathlist[i];
+					childItem.childrenMap = new HashMap<String, Node.Structure>();
+					childItem.children = new ArrayList<Node.Structure>();
+					currentItem.childrenMap.put(pathlist[i], childItem);
+				}
 				
 				currentNode = currentNode.childrenMap.get(pathlist[i]);
+				currentItem = currentItem.childrenMap.get(pathlist[i]);
 			}
 			String fileName = getFileName(pathlist);
 			
@@ -121,8 +145,15 @@ public class Node {
 			fileNodeObj.children = new ArrayList<NodeInfo>();
 			fileNodeObj.numberOfAttributes = entity.getValue().getNumberOfAttributes();
 			
+			Structure fileStructure = new Structure();
+			fileStructure.name = fileName;
+			fileStructure.childrenMap = new HashMap<String, Node.Structure>();
+//			fileStructure.children = new ArrayList<Node.Structure>();
+			
 			currentNode.childrenMap.put(fileName,fileNodeObj);
+			currentItem.childrenMap.put(fileName,fileStructure);
 			NodeInfo fileNode = currentNode.childrenMap.get(fileName);
+//			Structure structueNode = currentItem.childrenMap.get(fileName);
 			
 			String className = getClassName(pathlist);
 			NodeInfo classNodeObj = new NodeInfo();
@@ -141,12 +172,20 @@ public class Node {
 			classNodeObj.bugStatus = entity.getValue().isBugStatus();
 			classNodeObj.methodBugList = entity.getValue().getMethodBugList();
 			
+//			Structure classStructure = new Structure();
+//			classStructure.name = className;
+//			classStructure.childrenMap = new HashMap<String, Node.Structure>();
+//			classStructure.children = new ArrayList<Node.Structure>();
+			
 			fileNode.childrenMap.put(fileName, classNodeObj);
+//			structueNode.childrenMap.put(fileName, classStructure);
 //			System.out.println(fileNode.childrenMap.get(fileName).name);
 		}
 		
 		GenerateChildList(tree,repositoryName+"/{{TYPE}}/"+commit,repositary);
+		structureChildList(strTree);
 		GenerateChildrenPosition(tree);
+		tree.structure = strTree;
 		return tree;
 	}
 	
@@ -215,6 +254,14 @@ public class Node {
 			n.children.add(child.getValue());
 			if((child.getValue().childrenMap.size()) > 0 ){
 				GenerateChildList(child.getValue(),baseName,repositary);
+			}
+		}
+	}
+	void structureChildList(Structure n) {
+		for ( Map.Entry<String, Structure> child : n.childrenMap.entrySet()) {
+			n.children.add(child.getValue());
+			if((child.getValue().childrenMap.size()) > 0 ){
+				structureChildList(child.getValue());
 			}
 		}
 	}
