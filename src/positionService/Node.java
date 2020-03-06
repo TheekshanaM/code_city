@@ -25,6 +25,8 @@ public class Node {
 	public static class Structure{
 		@Expose(serialize = true)
 		String name;
+		@Expose(serialize = true)
+		boolean toggled;
 		@Expose(serialize = false)
 		HashMap<String, Structure> childrenMap;
 		@Expose(serialize = true)
@@ -128,6 +130,9 @@ public class Node {
 				if(currentItem.childrenMap.get(pathlist[i]) == null){
 					Structure childItem = new Structure();
 					childItem.name = pathlist[i];
+					if(i != (pathlist.length-2)) {
+						childItem.toggled = true;
+					}
 					childItem.childrenMap = new HashMap<String, Node.Structure>();
 					childItem.children = new ArrayList<Node.Structure>();
 					currentItem.childrenMap.put(pathlist[i], childItem);

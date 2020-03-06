@@ -7,7 +7,7 @@ import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 
 public class Helper {
-	public static String localPath = "E:\\Document\\Reserch\\gitrepo";
+	public static String localPath = "E:\\Theekshana\\gitrepo";
 	public static Repository openJGitCookbookRepository() throws IOException {
         FileRepositoryBuilder builder = new FileRepositoryBuilder();
         return builder
