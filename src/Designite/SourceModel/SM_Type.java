@@ -59,7 +59,7 @@ public class SM_Type extends SM_SourceItem implements Vertex {
 	}
 	
 	public SM_Type() {
-		
+		bugList.clear();
 	}
 	
 	public SM_Type(TypeDeclaration typeDeclaration, CompilationUnit compilationUnit, SM_Package pkg, InputArgs inputArgs) {

@@ -279,7 +279,7 @@ public class Node {
 		}
 		String raw;
 //		System.out.println(node.name.equalsIgnoreCase(repositary) );
-		if (node.name.length() > 0 && !node.name.equalsIgnoreCase(repositary)) {
+		if (node.name.length() > 0 && !node.name.equals(repositary)) {
 			raw = parentPath+"/"+ node.name;
 		} else {
 			raw = parentPath;

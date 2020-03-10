@@ -15,6 +15,7 @@ import Designite.SourceModel.*;
 public class Designite {
 	public static Map<String, HashMap<String, HashSet<String>>> designiteRun(String inputpath) throws IOException {
 		String inputPath = inputpath;
+		SM_Type sm_type =  new SM_Type();
 
 		InputArgs argsObj =  new InputArgs(inputPath);
 		SM_Project project = new SM_Project(argsObj); //get source name and path for save result - argsObj
@@ -25,7 +26,7 @@ public class Designite {
 		project.computeMetrics();
 		project.detectCodeSmells();
 		
-		SM_Type sm_type =  new SM_Type();
+		
 		
 		return sm_type.getBuglist();
 	}

@@ -65,7 +65,7 @@ public class ImplementationSmellDetector {
 		detectLongMethod();
 		detectLongParameterList();
 		detectLongStatement();
-		detectMagicNumber();
+//		detectMagicNumber();
 		detectMissingDefault();
 		return smells;
 	}
@@ -296,7 +296,7 @@ public class ImplementationSmellDetector {
 		methodMetrics.getMethod().getMethodDeclaration().accept(visitor);
 		List<SwitchStatement> switchStatements = visitor.getSwitchStatements();
 		for(SwitchStatement singleSwitchStatement : switchStatements) {
-			if(switchIsMissingDefault(singleSwitchStatement)) {
+			if(!switchIsMissingDefault(singleSwitchStatement)) {
 				addToSmells(initializeCodeSmell(MISSING_DEFAULT));
 			}
 		}
