@@ -12,7 +12,8 @@ public class GetAllCommits {
 			Repository repository = Helper.openJGitCookbookRepository();
 			ArrayList<String> commitList = new ArrayList<String>();
 			try (Git git = new Git(repository)) {
-                Iterable<RevCommit> commits = git.log().all().call();
+//                Iterable<RevCommit> commits = git.log().all().call();
+				Iterable<RevCommit> commits = git.log().add(repository.resolve("refs/heads/master")).call();
                 
                 for (RevCommit commit : commits) {
                 	String strCommit= commit.toString();
